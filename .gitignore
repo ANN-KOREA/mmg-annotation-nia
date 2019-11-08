@@ -1,0 +1,8 @@
+*.pyc
+*.DS_Store
+*target/*
+.project
+.classpath
+*.iml
+.idea/
+data

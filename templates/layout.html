@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lunit MG</title>
+
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+
+    <!-- jquery sweetalert -->
+    <link href="/static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <link href="/static/css/plugins/footable/footable.core.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/static/img/favicon.ico"/>
+    {% block css %}
+    {% endblock %}
+
+</head>
+
+<body>
+<div id="loading_indicator_wrapper" class="modal-backdrop">
+    <div class="loading_progress_bar">
+        <div>
+            <div class="loading_progress_bar_value"><label>RCC</label><label id="rcc_label">0%</label></div>
+            <div id="rcc_bar" class="level-track"></div>
+        </div>
+        <div>
+            <div class="loading_progress_bar_value"><label>LCC</label><label id="lcc_label">0%</label></div>
+            <div id="lcc_bar" class="level-track"></div>
+        </div>
+        <div>
+            <div class="loading_progress_bar_value"><label>RMLO</label><label id="rmlo_label">0%</label></div>
+            <div id="rmlo_bar" class="level-track"></div>
+        </div>
+        <div>
+            <div class="loading_progress_bar_value"><label>LMLO</label><label id="lmlo_label">0%</label></div>
+            <div id="lmlo_bar" class="level-track"></div>
+        </div>
+    </div>
+</div>
+
+<div id="wrapper">
+    <div class="bg-charcol nomargin">
+        {% block header %}{% endblock %}
+        <div class="wrapper wrapper-content">
+            {% block content %}{% endblock %}
+        </div>
+        <div class="footer" style="position: relative;">
+            <div class="disp-ib">
+                <p class="nomargin"><strong>Copyright</strong> Lunit &copy; 2017</p>
+            </div>
+            <div class="pull-right disp-ib">
+                <p class="annotation_status" id="annotation_status"> No. {{ case_info.seq }} /
+                    Total {{ annotation_status.tot_cnt }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/static/js/jquery-2.1.1.js"></script>
+
+<!-- Main scripts -->
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="/static/js/inspinia.js"></script>
+
+<!-- jQuery UI -->
+<script src="/static/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+<!-- Sparkline -->
+<script src="/static/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+<!-- metisMenu(jquery menu plugin) -->
+<script src="/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+<!-- jquery slimScroll plugin -->
+<script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="/static/js/plugins/staps/jquery.steps.min.js"></script>
+<script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+
+<!-- jquery sweetalert -->
+<script src="/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+{% block js %}
+{% endblock %}
+
+</body>
+</html>

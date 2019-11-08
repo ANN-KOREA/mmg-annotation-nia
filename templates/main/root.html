@@ -1,0 +1,211 @@
+{% extends "layout.html" %}
+{% load force_refresh %}
+{% block css %}
+    <link href="{% force_refresh 'custom/css/custom_fhd.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link href="/static/css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+    <link href="/static/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <link href="/static/css/plugins/switchery/switchery.css" rel="stylesheet">
+
+    <link rel="prefetch" id="rcc_prefetch" href="">
+    <link rel="prefetch" id="lcc_prefetch" href="">
+    <link rel="prefetch" id="rmlo_prefetch" href="">
+    <link rel="prefetch" id="lmlo_prefetch" href="">
+{% endblock %}
+
+{% block header %}
+    <div class="row wrapper bg-navy noselect header-box">
+        <div class="header-left-box">
+            <!-- Pan/Pen button -->
+            <div class="header-btn  nopadding disp-ib" id="cursor-mode-btn"
+                 style="width: 70px;"
+                 data-tooltip="tooltip" data-placement="bottom" title="Adjust Pan">PAN
+            </div>
+            <!-- Reset button -->
+            <div class="header-btn  nopadding disp-ib" id="reset-btn"
+                 data-tooltip="tooltip" data-placement="bottom" title="Reset">
+                <i class="fa fa-undo"></i>
+            </div>
+            <!-- reject button -->
+            <div class="yn-btn header-btn nopadding disp-ib"
+                 type="button" id="discard_yn" data-tooltip="tooltip" data-placement="bottom"
+                 title="판독불가능영상">
+                <i class="fa fa-exclamation"></i>
+            </div>
+        </div>
+        <div class="header-right-box">
+                <div class="nopadding prev-next-btn disp-ib" id="prev-btn">
+                    <span class="prev-next"><i class="fa fa-arrow-left"></i></span>
+                </div>
+                <div class="nopadding prev-next-btn disp-ib" id="next-btn">
+                    <span class="prev-next"><i class="fa fa-arrow-right"></i></span>
+                </div>
+                <div class="nopadding disp-ib">
+                <ul class="nav navbar-top-links">
+                    <li class="nomargin pull-right">
+                        <a href="javascript:logout();" style="font-size: 13px;">
+                            <i class="fa fa-sign-out"></i> Log out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+
+    <div class="wrapper wrapper-content animated fadeIn noselect">
+        <div class="row">
+
+            <!-------------------------------------------- Mammo Image : Begin -------------------------------------------->
+            <div class="col-lg-12 col-md-12 col-sm-12 nopadding" id="current_case">
+
+                <!-- RCC -->
+                <div class="col-lg-3 col-md-3 col-sm-3 mg_img_panel">
+                    <div class="ibox float-e-margins nomargin">
+                        <div class="ibox-title">
+                            <p class="nomargin">RCC</p>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <div id="rcc" class="mg_container">
+                                        <canvas class="annotation"></canvas>
+                                        <div class="overlay tl"></div>
+                                        <div class="overlay tr"></div>
+                                        <div class="overlay bl"></div>
+                                        <div class="overlay br"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- RCC -->
+
+                <!-- LCC -->
+                <div class="col-lg-3 col-md-3 col-sm-3 mg_img_panel">
+                    <div class="ibox float-e-margins nomargin">
+                        <div class="ibox-title">
+                            <p class="nomargin">LCC</p>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <div id="lcc" class="mg_container">
+                                        <canvas class="annotation"></canvas>
+                                        <div class="overlay tl"></div>
+                                        <div class="overlay tr"></div>
+                                        <div class="overlay bl"></div>
+                                        <div class="overlay br"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- LCC -->
+
+                <!-- RMLO -->
+                <div class="col-lg-3 col-md-3 col-sm-3 mg_img_panel">
+                    <div class="ibox float-e-margins nomargin">
+                        <div class="ibox-title">
+                            <p class="nomargin">RMLO</p>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <div id="rmlo" class="mg_container">
+                                        <canvas class="annotation"></canvas>
+                                        <div class="overlay tl"></div>
+                                        <div class="overlay tr"></div>
+                                        <div class="overlay bl"></div>
+                                        <div class="overlay br"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- RMLO -->
+
+                <!-- LMLO -->
+                <div class="col-lg-3 col-md-3 col-sm-3 mg_img_panel">
+                    <div class="ibox float-e-margins nomargin">
+                        <div class="ibox-title">
+                            <p class="nomargin">LMLO</p>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <div id="lmlo" class="mg_container">
+                                        <canvas class="annotation"></canvas>
+                                        <div class="overlay tl"></div>
+                                        <div class="overlay tr"></div>
+                                        <div class="overlay bl"></div>
+                                        <div class="overlay br"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- LMLO -->
+
+                <div class="hidden_val" id="case_info" data-obj="{{ case_info }}"/>
+
+            </div>
+            <!-------------------------------------------- Mammo Image : End -------------------------------------------->
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script src="/static/js/plugins/cornerstone/cornerstone.js"></script>
+    <script src="/static/js/plugins/dicomParser/dataDictionary.js"></script>
+    <script src="/static/js/plugins/dicomParser/dicomParser.js"></script>
+    <script src="/static/js/plugins/dicomParser/libopenjpeg.js"></script>
+    <script src="/static/js/plugins/dicomParser/libCharLS.js"></script>
+    <script src="/static/js/plugins/cornerstoneWADOImageLoader/cornerstoneWADOImageLoader.js"></script>
+    <script src="/static/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+    <script src="/static/js/plugins/switchery/switchery.js"></script>
+    <script src="/static/js/js.cookie.js"></script>
+    <script src="/static/custom/js/main/beforeLoad.js"></script>
+    <script src="{% force_refresh 'custom/js/common.js' %}"></script>
+    <script src="{% force_refresh 'custom/js/main/constant.js' %}"></script>
+    <script src="{% force_refresh 'custom/js/main/dicom_control.js' %}"></script>
+    <script src="{% force_refresh 'custom/js/main/contour.js' %}"></script>
+    <script src="{% force_refresh 'custom/js/main/root.js' %}"></script>
+    <script src="{% force_refresh 'custom/js/main/data_control.js' %}"></script>
+
+    <script>
+        function registerServiceWorker() {
+            navigator.serviceWorker.register('/sw.js')
+                .then(function (registration) {
+                    console.log('Registration successful, scope is:', registration.scope);
+                })
+                .catch(function (error) {
+                    console.log('Service worker registration failed, error:', error);
+                });
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.getRegistration('/sw.js').then(function (registration) {
+                    if (registration) {
+                        console.log('ServiceWorker registration found. Try to re-register.');
+                        registration.unregister().then(function (boolean) {
+                            if (boolean) {
+                                console.log('Unregister success.');
+                                registerServiceWorker();
+                            }
+                        });
+                    } else {
+                        registerServiceWorker();
+                    }
+                });
+            });
+        }
+    </script>
+{% endblock %}

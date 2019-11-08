@@ -1,0 +1,110 @@
+{% load force_refresh %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lunit MG</title>
+
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <!-- jquery sweetalert -->
+    <link href="/static/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/img/favicon.ico"/>
+</head>
+
+<body class="lunit-bg">
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+        <div style="margin-top: 150px; text-align: left;">
+            <img src="/static/img/lunit_logo.png" style="width: 280px;"/>
+        </div>
+        <form class="m-t-lg" id="login_form" role="form" action="/">
+            <div class="form-group">
+                <input id="login_name" type="text" class="form-control charcoal-bg" placeholder="ID" required="">
+            </div>
+            <div class="form-group">
+                <input id="passwd" type="password" class="form-control charcoal-bg" placeholder="Password" required="">
+            </div>
+            <button type="submit" class="btn btn-lunit block full-width m-b">Login</button>
+        </form>
+        <p class="m-t">
+            <small>Copyright Lunit &copy; 2017</small>
+        </p>
+    </div>
+</div>
+
+<script src="/static/js/jquery-2.1.1.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery-2.1.1.js"></script>
+<script src="/static/js/js.cookie.js"></script>
+<script src="/static/js/plugins/purl/purl.js"></script>
+
+<!-- jquery sweetalert -->
+<script src="/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+<script src="{% force_refresh 'custom/js/common.js' %}"></script>
+
+<script>
+    $("#login_form").on('submit', function (e) {
+        e.preventDefault();
+        login();
+    });
+
+    function clearDCMCaches() {
+        return caches.keys().then(function (keys) {
+            const deletePromises = keys.map(function (key) {
+                return caches.delete(key);
+            });
+            return Promise.all(deletePromises);
+        });
+    }
+
+    function login() {
+        var param = {
+            "login_name": $("#login_name").val(),
+            "passwd"    : $("#passwd").val()
+        };
+
+        if ($("#login_name").val() == "" || $("#passwd").val() == "") {
+            return false;
+        }
+
+        var url = "/auth/login/";
+
+        $.ajax({
+            type    : 'post',
+            url     : url,
+            data    : param,
+            dataType: 'json',
+            timeout : 10000,
+            async   : true,
+            success : function (data) {
+                if (data.result != null && data.result == "S") {
+                    if ($.trim($.url().param('redirect_after_login')) == "") {
+                        location.href = "/";
+                    }
+                    else {
+                        location.href = $.url().param('redirect_after_login');
+                    }
+                }
+                else {
+                    swal("", "Failed to login.\n Please check your email and password.", "error");
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        clearDCMCaches();
+    });
+
+</script>
+
+</body>
+
+</html>

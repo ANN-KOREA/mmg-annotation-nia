@@ -1,0 +1,31 @@
+version : '3'
+services:
+  tool:
+    links:
+      - db
+    build: .
+    volumes:
+      - sock_directory:/var/run/lunit/
+      - .:/home/annotation/code
+      - ./data/result:/home/annotation/result
+    restart: always
+
+  db:
+    build: run/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD : mmgannotationdb
+    ports:
+      - "33306:3306"
+    restart: always
+
+  nginx:
+    build: run/nginx
+    volumes:
+      - sock_directory:/var/run/lunit/
+      - .:/home/annotation/code
+    ports:
+      - "8088:88"
+    restart: always
+
+volumes:
+  sock_directory:
